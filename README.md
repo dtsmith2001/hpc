@@ -13,3 +13,12 @@ Both libraries use MPI.
 [Running an MPI Program in a LAN](http://mpitutorial.com/tutorials/running-an-mpi-cluster-within-a-lan/)
 
 [Launching an Amazon EC2 MPI Cluster](http://mpitutorial.com/tutorials/launching-an-amazon-ec2-mpi-cluster/)
+
+## Compiling the example
+
+The makefile is primitive, and reflects my lack of knowlege and time.
+
+Use ```make example1``` to build the first example. Use ```example1 -help``` to see the options. I've been examining memory usage via
+
+- ./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpiaij
+- ./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpidense
