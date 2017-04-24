@@ -22,7 +22,7 @@ int main(int argc, char **args) {
     PetscReal sparsity;
     PetscInt istart, iend, n_row, n_col, max_count;
     PetscBool hh = (PetscBool)0;
-    PetscBool slow = false;
+    PetscBool slow = (PetscBool)0;
     Mat A;
 
     cout << "Initialize" << endl;
