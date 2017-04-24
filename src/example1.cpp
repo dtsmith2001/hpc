@@ -62,8 +62,8 @@ int main(int argc, char **args) {
             }
         }
     } else {
-        values.reserve(ceiling(sparsity * n_col));
-        cols.reserve(ceiling(sparsity * n_col));
+        values.reserve(ceil(sparsity * n_col));
+        cols.reserve(ceil(sparsity * n_col));
         cout << "fast" << endl;
         for (int i = 0; i < n_row; i++) {
             for (int j = 0; j < n_col; j++) {
