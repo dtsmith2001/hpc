@@ -36,7 +36,7 @@ int main(int argc, char **args) {
     PetscOptionsGetReal(NULL, NULL, "-sparsity", &sparsity, NULL);
     PetscOptionsGetInt(NULL, NULL, "-n_row", &n_row, NULL);
     PetscOptionsGetInt(NULL, NULL, "-n_col", &n_col, NULL);
-    cout << "Got options" << endl;
+    cout << "Got options n_row " << n_row << " n_col " << n_col << endl;
 
     MatCreate(PETSC_COMM_WORLD, &A);
 
