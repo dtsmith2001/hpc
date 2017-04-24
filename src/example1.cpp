@@ -48,7 +48,7 @@ int main(int argc, char **args) {
 
     PetscRandomCreate(PETSC_COMM_WORLD, &rctx);
     PetscRandomSetInterval(rctx, 0.0, 1.0);
-    cout << "Create and assemble matrix" << endl;
+    cout << "Create and assemble matrix with istart " << istart << " iend " << iend << endl;
     for (i = istart; i < iend; i++) {
         PetscRandomGetValue(rctx, &rnd);
         rnd = rnd > sparsity ? 0.0 : rnd;
