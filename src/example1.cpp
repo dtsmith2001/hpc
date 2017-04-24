@@ -2,15 +2,13 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <vector>
 
 #include "slepcsvd.h"
 
 #include "get_rss.h"
 
-using std::cout;
-using std::endl;
-using std::string;
-using std::setprecision;
+using namespace std;
 
 string help("Create a random sparse or dense matrix.\n"
     "Use\n\t-n-row # rows\n\t-n-cols # columns\n\t-sparsity float\n\t-mat_type mpidense for a dense matrix\n\t"
@@ -23,6 +21,8 @@ int main(int argc, char **args) {
     PetscInt istart, iend, n_row, n_col, max_count;
     PetscBool hh = (PetscBool)0;
     PetscBool slow = (PetscBool)0;
+    vector<int> cols;
+    vector<double> values;
     Mat A;
 
     cout << "Initialize" << endl;
@@ -57,18 +57,26 @@ int main(int argc, char **args) {
                 PetscRandomGetValue(rctx, &rnd);
                 rnd = rnd > sparsity ? 0.0 : rnd;
                 rnd = max_count * rnd;
-                MatSetValue(A, i, j, rnd, ADD_VALUES);
+                MatSetValue(A, i, j, rnd, INSERT_VALUES);
             }
         }
     } else {
-        MatGetOwnershipRange(A, &istart, &iend);
+        values.reserve(ceiling(sparsity * n_col));
+        cols.reserve(ceiling(sparsity * n_col));
         cout << "fast" << endl;
-        cout << "Create and assemble matrix with istart " << istart << " iend " << iend << endl;
-        for (PetscInt i = istart; i < iend; i++) {
-            PetscRandomGetValue(rctx, &rnd);
-            rnd = rnd > sparsity ? 0.0 : rnd;
-            rnd = max_count * rnd;
-            MatSetValues(A, 1, &i, 1, &i, &rnd, INSERT_VALUES);
+        for (int i = 0; i < n_row; i++) {
+            for (int j = 0; j < n_col; j++) {
+                PetscRandomGetValue(rctx, &rnd);
+                rnd = rnd > sparsity ? 0.0 : rnd;
+                rnd = max_count * rnd;
+                if (rnd > 0.0) {
+                    values.append(rnd);
+                    cols.append(j);
+                }
+            }
+            MatSetValues(A, 1, &i, cols.size(), cols.data(), values.data(), INSERT_VALUES);
+            cols.clear();
+            values.clear();
         }
     }
     PetscRandomDestroy(&rctx);
