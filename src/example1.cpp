@@ -3,6 +3,7 @@
 #include <string>
 #include <iomanip>
 #include <vector>
+#include <cmath>
 
 #include "slepcsvd.h"
 
@@ -18,7 +19,7 @@ int main(int argc, char **args) {
     PetscRandom rctx;
     PetscScalar rnd;
     PetscReal sparsity;
-    PetscInt istart, iend, n_row, n_col, max_count;
+    PetscInt n_row, n_col, max_count;
     PetscBool hh = (PetscBool)0;
     PetscBool slow = (PetscBool)0;
     vector<int> cols;
@@ -70,8 +71,8 @@ int main(int argc, char **args) {
                 rnd = rnd > sparsity ? 0.0 : rnd;
                 rnd = max_count * rnd;
                 if (rnd > 0.0) {
-                    values.append(rnd);
-                    cols.append(j);
+                    values.push_back(rnd);
+                    cols.push_back(j);
                 }
             }
             MatSetValues(A, 1, &i, cols.size(), cols.data(), values.data(), INSERT_VALUES);
