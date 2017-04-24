@@ -22,3 +22,7 @@ Use ```make example1``` to build the first example. Use ```example1 -help``` to 
 
 - ```./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpiaij```
 - ```./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpidense```
+
+## Maximum RSS
+
+See [how I get the maximum RSS](http://nadeausoftware.com/articles/2012/07/c_c_tip_how_get_process_resident_set_size_physical_memory_use).
