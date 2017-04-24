@@ -20,5 +20,5 @@ The makefile is primitive, and reflects my lack of knowlege and time.
 
 Use ```make example1``` to build the first example. Use ```example1 -help``` to see the options. I've been examining memory usage via
 
-- ./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpiaij
-- ./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpidense
+- ```./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpiaij```
+- ```./example1 -n_row 200 -n_col 20000 -sparsity 0.03 -mat_type mpidense```
