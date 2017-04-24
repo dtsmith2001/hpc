@@ -46,11 +46,9 @@ int main(int argc, char **args) {
     MatSetSizes(A, PETSC_DECIDE, PETSC_DECIDE, n_row, n_col);
     MatSetFromOptions(A);
     MatSetUp(A);
-    MatGetOwnershipRange(A, &istart, &iend);
 
     PetscRandomCreate(PETSC_COMM_WORLD, &rctx);
     PetscRandomSetInterval(rctx, 0.0, 1.0);
-    cout << "Create and assemble matrix with istart " << istart << " iend " << iend << endl;
     if (slow) {
         // this loop is very, very slow
         cout << "slow" << endl;
@@ -63,7 +61,9 @@ int main(int argc, char **args) {
             }
         }
     } else {
+        MatGetOwnershipRange(A, &istart, &iend);
         cout << "fast" << endl;
+        cout << "Create and assemble matrix with istart " << istart << " iend " << iend << endl;
         for (PetscInt i = istart; i < iend; i++) {
             PetscRandomGetValue(rctx, &rnd);
             rnd = rnd > sparsity ? 0.0 : rnd;
